@@ -1,11 +1,23 @@
 # Carpet PLS Addition
 
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](LICENSE)
-[![Minecraft](https://img.shields.io/badge/Minecraft-26.2-green.svg)](https://minecraft.net)
+[![Releases](https://img.shields.io/github/v/release/RisingZenByte/carpet-pls-addition?label=release)](https://github.com/RisingZenByte/carpet-pls-addition/releases)
 
 PLS 服务器定制的 [Carpet mod](https://github.com/gnembon/fabric-carpet) **服务端**扩展，提供 **PCA 同步协议**，供客户端 [pca-client](https://github.com/RisingZenByte/pca-client) 实现 Tweakeroo 多人容器预览。
 
 > **注意：** 本 mod 为 **纯服务端**（`environment: server`）。**不要**在客户端安装；客户端请使用 [pca-client](https://github.com/RisingZenByte/pca-client)。
+
+---
+
+## 支持版本
+
+本项目采用 **多版本 preprocess 架构**，会随 Minecraft 更新持续维护。请从 [Releases](https://github.com/RisingZenByte/carpet-pls-addition/releases) 下载与服务器 **相同 MC 版本** 的 jar。
+
+| Minecraft | Mod 版本 | 状态 |
+|-----------|----------|------|
+| **26.2** | 1.0.0 | 当前支持 |
+
+Release 标签格式：`v{mod版本}-mc{mc版本}`（例如 `v1.0.0-mc26.2`）。
 
 ---
 
@@ -35,12 +47,9 @@ PLS 服务器定制的 [Carpet mod](https://github.com/gnembon/fabric-carpet) **
 
 ## 安装
 
-### 服务端
-
-1. Minecraft **26.2** + Fabric Loader **≥ 0.19.3**
-2. 安装 [fabric-carpet 26.2](https://github.com/gnembon/fabric-carpet/releases/tag/v26.2)
-3. 将编译好的 `carpet-pls-addition-*.jar` 放入 `mods/`
-4. 启动后执行：
+1. 安装对应 MC 版本的 **Fabric Loader** 与 **[fabric-carpet](https://github.com/gnembon/fabric-carpet)**（版本需匹配）
+2. 将 Release 中的 `carpet-pls-addition-*.jar` 放入服务端 `mods/`
+3. 启动后执行：
 
 ```
 /pls pcaSyncProtocol true
@@ -49,9 +58,7 @@ PLS 服务器定制的 [Carpet mod](https://github.com/gnembon/fabric-carpet) **
 
 配置可写入世界目录 `pls.conf` 持久保存。
 
-### 客户端
-
-安装 **[pca-client](https://github.com/RisingZenByte/pca-client)** + MaLiLib + Tweakeroo。**不要**安装本 mod。
+**客户端**请安装同 MC 版本的 [pca-client](https://github.com/RisingZenByte/pca-client) + MaLiLib + Tweakeroo，**不要**安装本 mod。
 
 ---
 
@@ -63,7 +70,14 @@ cd carpet-pls-addition
 .\gradlew.bat :26.2:build
 ```
 
-产物：`versions/26.2/build/libs/carpet-pls-addition-*.jar`
+产物位于 `versions/{mc版本}/build/libs/`。发布构建：
+
+```powershell
+$env:BUILD_RELEASE = "true"
+.\gradlew.bat :26.2:build
+```
+
+新增 MC 版本：在 `settings.json` 与 `versions/` 下添加对应子项目，并更新 `build.gradle` 中的 preprocess 节点链接。
 
 ---
 
@@ -71,9 +85,9 @@ cd carpet-pls-addition
 
 | 依赖 | 说明 |
 |------|------|
-| Minecraft 26.2 | |
+| Minecraft（与 jar 匹配） | 见 Releases |
 | Fabric Loader ≥ 0.19.3 | |
-| [fabric-carpet](https://github.com/gnembon/fabric-carpet) ≥ 26.2 | 必须 |
+| [fabric-carpet](https://github.com/gnembon/fabric-carpet) | 必须，版本需匹配 MC |
 | [fanetlib](https://github.com/Fallen-Breath/fanetlib) | 已内嵌于 jar |
 
 ---
