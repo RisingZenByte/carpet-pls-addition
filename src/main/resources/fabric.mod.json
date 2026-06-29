@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "PLS 服务器定制 Carpet 扩展，提供 PCA 同步协议等功能",
+  "authors": [
+    "RisingZenByte"
+  ],
+  "contact": {
+    "homepage": "https://github.com/RisingZenByte/carpet-pls-addition",
+    "issues": "https://github.com/RisingZenByte/carpet-pls-addition/issues",
+    "sources": "https://github.com/RisingZenByte/carpet-pls-addition"
+  },
+  "license": "LGPL-3.0",
+  "icon": "icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "com.plusls.carpet.PlsCarpetAddition"
+    ]
+  },
+  "mixins": [
+    "pca.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "${minecraft_dependency}",
+    "carpet": "${carpet_dependency}",
+    "fanetlib": ">=0.2.0"
+  },
+  "breaks": {
+    "pca-protocol": "*",
+    "pca": "*"
+  }
+}

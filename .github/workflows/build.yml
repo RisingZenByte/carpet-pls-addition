@@ -1,0 +1,31 @@
+name: Build
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 25
+
+      - name: Build
+        run: |
+          chmod +x gradlew
+          ./gradlew :26.2:build
+
+      - name: Upload jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: carpet-pls-addition
+          path: versions/26.2/build/libs/*-mc26.2*.jar
+          if-no-files-found: error
