@@ -40,9 +40,6 @@ jobs:
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            versions/${{ steps.mc.outputs.version }}/build/libs/*-mc${{ steps.mc.outputs.version }}.jar
-            !**/*-sources.jar
-            !**/*-dev.jar
+          files: versions/${{ steps.mc.outputs.version }}/build/libs/carpet-pls-addition-v*-mc${{ steps.mc.outputs.version }}.jar
           generate_release_notes: true
           fail_on_unmatched_files: true
