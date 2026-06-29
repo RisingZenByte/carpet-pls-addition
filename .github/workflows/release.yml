@@ -37,9 +37,39 @@ jobs:
           chmod +x gradlew
           ./gradlew :${{ steps.mc.outputs.version }}:build
 
+      - name: Write release notes (中文)
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          MOD_VER="${TAG#v}"
+          MOD_VER="${MOD_VER%-mc*}"
+          MC_VER="${TAG##*-mc}"
+          {
+            echo "## Minecraft ${MC_VER} · ${MOD_VER}"
+            echo ""
+            echo "### 下载"
+            echo "从下方 **Assets** 下载 \`carpet-pls-addition-v${MOD_VER}-mc${MC_VER}.jar\`，放入**服务端** \`mods/\` 文件夹。"
+            echo ""
+            echo "### 依赖"
+            echo "- Minecraft ${MC_VER}"
+            echo "- Fabric Loader ≥ 0.19.3"
+            echo "- [fabric-carpet](https://github.com/gnembon/fabric-carpet)（${MC_VER} 版本）"
+            echo ""
+            echo "> **注意：** 本 mod 为纯服务端 mod，**不要**在客户端安装。"
+            echo ""
+            echo "### 配置"
+            echo "启动服务器后执行："
+            echo '```'
+            echo "/pls pcaSyncProtocol true"
+            echo "/pls pcaSyncPlayerEntity ops"
+            echo '```'
+            echo ""
+            echo "### 客户端配套"
+            echo "客户端请安装同 MC 版本的 [pca-client](https://github.com/RisingZenByte/pca-client/releases) + MaLiLib + Tweakeroo。"
+          } > release-notes.md
+
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: versions/${{ steps.mc.outputs.version }}/build/libs/carpet-pls-addition-v*-mc${{ steps.mc.outputs.version }}.jar
-          generate_release_notes: true
+          body_path: release-notes.md
           fail_on_unmatched_files: true
